@@ -1,10 +1,10 @@
 const apiKey = ' 	eN82sMLwPY48Z8ghRH7PtKoJGB3Wdwk6 ';
 
 // Nome da cidade que você está procurando
-const cityName = 'São Paulo';
+const cityName = 'Rio';
 
 // Montar a URL com a chave de API e o nome da cidade
-const url = `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=${encodeURIComponent(cityName)}&language=pt-BR`;
+const url = `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${apiKey}&q=${encodeURIComponent(cityName)}&language=pt-BR`;
 
 // Função para fazer o fetch e tratar a resposta
 async function fetchCityData() {
