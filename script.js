@@ -1,10 +1,131 @@
 const apiKey = 'd7db451187ac48b4bd7130555242305';
 const cityName = 'Guardinha';
-const apiUrlCity = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&lang=pt`;
+const apiUrlCurrent = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&lang=pt`;
+const apiUrlWeatherForecast = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=3&lang=pt`;
+// const apiUrlCity = `http://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${cityName}&lang=pt`;
+const cacheWeatherForecastKey = 'forecastData'
 const cacheKey = 'weatherData';
 const cacheExpiry = 3600000; // 1 hour in milliseconds
 
+let city = document.getElementById("city")
+let temperature = document.getElementById("temperature")
+let status = document.getElementById("status")
+let wet = document.getElementById("wet")
+let precip_in = document.getElementById("precip_in")
+let last_updated = document.getElementById("last_updated")
+
 async function fetchWeatherData() {
+      fetch(apiUrlCurrent)
+        .then(response => response.json())
+        .then(data => {
+          localStorage.setItem(cacheKey, JSON.stringify({ data, timestamp: Date.now() }));
+        //   displayWeatherData(data);
+            
+        console.log(data)
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+
+// console.log("A")
+
+
+async function getWeatherData() {
+  const cachedData = localStorage.getItem(cacheKey);
+  if (cachedData) {
+    const { data, timestamp } = JSON.parse(cachedData);
+    if (Date.now() - timestamp < cacheExpiry) {
+      console.log('✅ Using cached data');
+      console.log(data.location.name);
+      console.log(data.location.region);
+      console.log(data.location.country);
+
+      console.log(data.current.condition.text)
+      console.log(data.current.feelslike_c +" ºC")
+
+      city.innerHTML = data.location.name
+
+      temperature.innerHTML = data.current.temp_c +" ºC"
+
+      status.innerHTML = data.current.condition.text
+
+      wet.innerHTML = data.current.humidity+"%"
+
+      precip_in.innerHTML = data.current.precip_in+"%";
+
+      last_updated.innerHTML = data.current.last_updated.split(' ')[1]
+
+
+      console.log(data)
+      return;
+    }
+  }
+  console.log('🔄 Fetching new data');
+  fetchWeatherData();
+}
+
+
+
+
+async function fetchWeatherForecast() {
+  fetch(apiUrlWeatherForecast)
+    .then(response => response.json())
+    .then(data => {
+      localStorage.setItem(cacheWeatherForecastKey, JSON.stringify({ data, timestamp: Date.now() }));
+    //   displayWeatherData(data);
+        
+    console.log(data)
+    
+  })
+  .catch(error => console.error('Error:', error));
+
+
+}
+
+
+async function getForecastData() {
+  const cachedData = localStorage.getItem(cacheWeatherForecastKey);
+  if (cachedData) {
+    const { data, timestamp } = JSON.parse(cachedData);
+    if (Date.now() - timestamp < cacheExpiry) {
+      console.log('✅ Using cached data');
+      for (let index = 0; index < data.forecast.forecastday.length; index++) {
+        console.log(brazilianDate(data.forecast.forecastday[index].date))
+        console.log(data.forecast.forecastday[index].day.condition.text)
+        console.log(data.forecast.forecastday[index].day.avgtemp_c + "ºC")
+
+        
+
+        
+      }
+      console.log(data)
+
+      return;
+    }
+  }
+  console.log('🔄 Fetching new data');
+  fetchWeatherForecast();
+}
+
+
+getWeatherData();
+getForecastData();
+
+
+function brazilianDate(date) {
+  // Cria um objeto Date a partir da string de data
+  const dateObj = new Date(date);
+  
+  // Extrai o dia, mês e ano do objeto Date
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Os meses em JavaScript são indexados de 0 a 11
+  const year = dateObj.getFullYear();
+  
+  // Retorna a data formatada no padrão brasileiro
+  return `${day}/${month}/${year}`;
+}
+/*
+async function fetchCityData() {
       fetch(apiUrlCity)
         .then(response => response.json())
         .then(data => {
@@ -18,23 +139,29 @@ async function fetchWeatherData() {
 
 
 // console.log("A")
-getWeatherData();
 
-async function getWeatherData() {
+async function geCityData() {
   const cachedData = localStorage.getItem(cacheKey);
   if (cachedData) {
     const { data, timestamp } = JSON.parse(cachedData);
     if (Date.now() - timestamp < cacheExpiry) {
       console.log('Using cached data');
-      console.log(data);
+      // console.log(data);
+      for (let index = 0; index < data.length; index++) {
+        const element = data[index];
+        console.log(element.name, ",", element.region, "-",element.country)
+        console.log(element)
+      }
+
       return;
     }
   }
   console.log('Fetching new data');
-  fetchWeatherData();
+  fetchCityData();
 }
 
-
+geCityData();
+*/
 
 
 
