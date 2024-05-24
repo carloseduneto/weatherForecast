@@ -1,7 +1,7 @@
 const apiKey = 'd7db451187ac48b4bd7130555242305';
 const cityName = 'Guardinha';
 const apiUrlCurrent = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&lang=pt`;
-const apiUrlWeatherForecast = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=3&lang=pt`;
+const apiUrlWeatherForecast = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=14&lang=pt`;
 // const apiUrlCity = `http://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${cityName}&lang=pt`;
 const cacheWeatherForecastKey = 'forecastData'
 const cacheKey = 'weatherData';
@@ -13,6 +13,9 @@ let status = document.getElementById("status")
 let wet = document.getElementById("wet")
 let precip_in = document.getElementById("precip_in")
 let last_updated = document.getElementById("last_updated")
+let threeDays = document.getElementsByClassName("threeDays")
+
+console.log(threeDays[0])
 
 async function fetchWeatherData() {
       fetch(apiUrlCurrent)
@@ -84,6 +87,7 @@ async function fetchWeatherForecast() {
 
 
 async function getForecastData() {
+  let nextDays;
   const cachedData = localStorage.getItem(cacheWeatherForecastKey);
   if (cachedData) {
     const { data, timestamp } = JSON.parse(cachedData);
@@ -94,10 +98,21 @@ async function getForecastData() {
         console.log(data.forecast.forecastday[index].day.condition.text)
         console.log(data.forecast.forecastday[index].day.avgtemp_c + "ºC")
 
+
+        nextDays+= 
+        `<span>icon</span>
+        <span>${brazilianDate(data.forecast.forecastday[index].date)}</span>
+        <span>${(data.forecast.forecastday[index].day.condition.text)}</span>
+        <span>${(data.forecast.forecastday[index].day.avgtemp_c + "ºC")}</span>
+        <br>`
+        
+
         
 
         
       }
+      threeDays[0].innerHTML= nextDays
+   
       console.log(data)
 
       return;
@@ -107,22 +122,24 @@ async function getForecastData() {
   fetchWeatherForecast();
 }
 
-
 getWeatherData();
 getForecastData();
 
 
 function brazilianDate(date) {
   // Cria um objeto Date a partir da string de data
-  const dateObj = new Date(date);
+  // console.log("A data: "+ date)
+  // const dateObj = new Date(date);
   
   // Extrai o dia, mês e ano do objeto Date
-  const day = String(dateObj.getDate()).padStart(2, '0');
-  const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Os meses em JavaScript são indexados de 0 a 11
-  const year = dateObj.getFullYear();
+  const day = date.slice(-2)
+  
+  const month = date.slice(5,7) 
+
+  const year = date.slice(0,4)
   
   // Retorna a data formatada no padrão brasileiro
-  return `${day}/${month}/${year}`;
+  return `${day}/${month}`;
 }
 /*
 async function fetchCityData() {
