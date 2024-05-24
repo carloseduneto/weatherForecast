@@ -1,11 +1,12 @@
 const apiKey = 'd7db451187ac48b4bd7130555242305';
 const cityName = 'Guardinha';
 const apiUrlCurrent = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&lang=pt`;
-const apiUrlWeatherForecast = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=14&lang=pt`;
+const apiUrlWeatherForecast = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=3&lang=pt`;
 // const apiUrlCity = `http://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${cityName}&lang=pt`;
 const cacheWeatherForecastKey = 'forecastData'
 const cacheKey = 'weatherData';
-const cacheExpiry = 3600000; // 1 hour in milliseconds
+// const cacheExpiry = 3600000; // 1 hour in milliseconds
+const cacheExpiry = 3600000000; // 1 hour in milliseconds
 
 let city = document.getElementById("city")
 let temperature = document.getElementById("temperature")
@@ -14,6 +15,71 @@ let wet = document.getElementById("wet")
 let precip_in = document.getElementById("precip_in")
 let last_updated = document.getElementById("last_updated")
 let threeDays = document.getElementsByClassName("threeDays")
+
+let cloudy = [
+  "Parcialmente nublado",
+  "Nublado",
+  "Encoberto",
+  "Neblina",
+  "Nevoeiro",
+"Nevoeiro gelado"
+]
+
+let rainy = [
+  "Chuvisco irregular",
+  "Chuvisco",
+  "Chuvisco gelado",
+  "Chuvisco forte gelado",
+  "Chuva fraca irregular",
+  "Chuva fraca",
+  "Períodos de chuva moderada",
+  "Chuva moderada",
+  "Períodos de chuva forte",
+  "Chuva forte",
+  "Chuva fraca e gelada",
+  "Chuva gelada moderada ou forte",
+  "Aguaceiros fracos",
+  "Aguaceiros moderados ou fortes",
+  "Possibilidade de chuva irregular"
+]
+
+let snowy = [
+  "Possibilidade de neve irregular",
+  "Chuva fraca com neve",
+  "Chuva forte ou moderada com neve",
+  "Queda de neve irregular e fraca",
+  "Queda de neve fraca",
+  "Queda de neve moderada e irregular",
+  "Queda de neve moderada",
+  "Aguaceiros fracos com neve",
+]
+
+let blizzard =[
+  "Queda de neve forte e irregular",
+  "Nevasca",
+  "Neve intensa"
+]
+
+let rainySnowy=[
+  "Possibilidade de neve molhada irregular",
+  "Possibilidade de chuvisco gelado irregular",
+  "Rajadas de vento com neve",
+  "Aguaceiros moderados ou fortes com neve",
+  "Chuva fraca com neve",
+  "Chuva moderada ou forte com neve",
+  "Neve fraca irregular com trovoada",
+  "Neve moderada ou forte com trovoada"
+]
+
+let storm=[
+  "Possibilidade de trovoada",
+  "Chuva torrencial",
+  "Granizo",
+  "Chuva fraca irregular com trovoada",
+  "Chuva moderada ou forte com trovoada",
+  "Aguaceiros fracos com granizo",
+"Aguaceiros moderados ou fortes com granizo"
+]
 
 console.log(threeDays[0])
 
@@ -48,7 +114,7 @@ async function getWeatherData() {
 
       city.innerHTML = data.location.name
 
-      temperature.innerHTML = data.current.temp_c +" ºC"
+      temperature.innerHTML = data.current.temp_c +"ºC"
 
       status.innerHTML = data.current.condition.text
 
@@ -87,7 +153,10 @@ async function fetchWeatherForecast() {
 
 
 async function getForecastData() {
-  let nextDays;
+  let nextDays="";
+  let nextCondition;
+  let iconCondition;
+
   const cachedData = localStorage.getItem(cacheWeatherForecastKey);
   if (cachedData) {
     const { data, timestamp } = JSON.parse(cachedData);
@@ -98,13 +167,72 @@ async function getForecastData() {
         console.log(data.forecast.forecastday[index].day.condition.text)
         console.log(data.forecast.forecastday[index].day.avgtemp_c + "ºC")
 
+        let dayCondition = (data.forecast.forecastday[index].day.condition.text)
+
+        if(rainy.includes(dayCondition)){
+          nextCondition = "Chuva"
+          iconCondition = `<span class="material-symbols-outlined">
+          rainy
+          </span>`
+        }
+
+        if(storm.includes(dayCondition)){
+          nextCondition = "Tempestade"
+          iconCondition = `<span class="material-symbols-outlined">
+          thunderstorm
+          </span>`
+        }
+
+        if(snowy.includes(dayCondition)){
+          nextCondition = "Neve"
+          iconCondition = `<span class="material-symbols-outlined">
+          cloudy_snowing
+          </span>`
+        }
+
+        if(rainySnowy.includes(dayCondition)){
+          nextCondition = "Chuva com neve"
+          iconCondition = `<span class="material-symbols-outlined">
+          rainy_snow
+          </span>`
+        }
+
+        if(cloudy.includes(dayCondition)){
+          nextCondition = "Nublado"
+          iconCondition = `<span class="material-symbols-outlined">
+          cloud
+          </span>`
+        }
+
+        if(blizzard.includes(dayCondition)){
+          nextCondition = "Nevasca"
+          iconCondition = `<span class="material-symbols-outlined">
+          snowing_heavy
+          </span>`
+        }
+      
+
+        if(dayCondition.includes("Sol")){
+          nextCondition = "Sol"
+          iconCondition = `<span class="material-symbols-outlined">
+          sunny
+          </span>`
+        }
+
+        if(dayCondition.includes("Céu limpo")){
+          nextCondition = "Céu limpo"
+          iconCondition =  `<span class="material-symbols-outlined">
+          clear_night
+          </span>`
+        }
 
         nextDays+= 
-        `<span>icon</span>
+        `<div class="nextsDays">
         <span>${brazilianDate(data.forecast.forecastday[index].date)}</span>
-        <span>${(data.forecast.forecastday[index].day.condition.text)}</span>
+        <span>${iconCondition}</span>
         <span>${(data.forecast.forecastday[index].day.avgtemp_c + "ºC")}</span>
-        <br>`
+        <span>${(nextCondition)}</span>
+        </div>`
         
 
         

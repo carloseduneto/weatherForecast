@@ -4,42 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet"
+
 </head>
 <body>
+    <header>
     <form action="">
-        <span>icon</span><input type="text" placeholder="Buscar cidades...">
+        <span class="material-symbols-outlined">
+            search
+            </span><input type="text" placeholder="Buscar cidades...">
     </form>
-    <div id="city"></div>
-    <h1 id="temperature"></h1>
-    <div id="status"></div>
+    <div class="principalTitle">
+        <div>
+            <div class="title">
+                <div id="city"></div>
+                <h1 id="temperature"></h1>
+            </div>
+        </div>
+
+        <div class="statusBox">
+            <div id="status"></div>
+        </div>
+    </div>
+</header>
+
+<main></main>
 
     <footer>
-        <div>
-            <span>Agora</span>
+    <div class="f1">    
+        <span>Agora</span>
+        <div class="info">
             <div class="now">
-                <span>icon</span><br>
-                <span id="wet"></span><br>
+                <span class="material-symbols-outlined">
+                    humidity_low
+                </span>
+                <span id="wet" class="principalInfo"></span>
                 <span>Umidade</span>
-            </div>
-
-            <div class="now">
-                <span>icon</span><br>
-                <span id="precip_in"></span><br>
-                <span>Probabilidade de chuva</span>
             </div>
             
             <div class="now">
-            <span>icon</span><br>
-            <span id="last_updated"></span><br>
-            <span>Última atualização</span>
+                <span class="material-symbols-outlined rainProbability">
+                    beach_access
+                </span>
+                <span id="precip_in"  class="principalInfo"></span>
+                <span align="center">Probabilidade<br> de chuva</span>
+            </div>
+            
+            <div class="now">
+                <span class="material-symbols-outlined">
+                    history
+                </span>
+                <span id="last_updated" class="principalInfo"></span>
+                <span align="center">Última <br>atualização</span>
+            </div>
         </div>
-        </div>
+        
+    </div>
+    <div class="f1">
 
+        <span>Próximos 3 dias</span>
         <div class="threeDays">
-           
+            
         </div>
-    </footer>
+    </div>
 
-    <script src="script.js"></script>
+    <div class="credit">
+        <div>
+            Powered by <a href="https://www.weatherapi.com/" title="Free Weather API" class="credit1" target="_blank">WeatherAPI.com</a>
+        </div>
+    </div>
+
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

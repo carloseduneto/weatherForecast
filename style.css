@@ -1,0 +1,145 @@
+*{
+    border: 0;
+    margin: 0;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    /* font-weight: <weight>; */
+    font-style: normal;
+}
+
+body{
+    background-repeat: no-repeat;
+    background-image: url("https://images.unsplash.com/photo-1716369413898-852306c79bcb?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    /* backdrop-filter: opacity(10%); */
+    background-position: center;
+}
+
+body {
+    /* background-color: rgb(173, 129, 71); */
+    min-height: 100vh;
+    margin: 0;
+}
+
+h1{
+    font-size: 100px;
+}
+
+footer {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* background: PapayaWhip; */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    min-height: 50px;
+    /* background: lightcyan; */
+  }
+
+  main {
+    flex: 1;
+  }
+
+.info{
+    display: flex;
+    flex-direction: row;
+}
+
+.threeDays{
+    display: flex;
+    flex-direction: row;
+}
+
+.nextsDays, .now{
+    margin-left: 10px;
+    display:flex ;
+    flex-direction: column;
+    align-items: center;
+    width: 33%;
+}
+
+.principalInfo{
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+#status{
+    transform: rotate(-90deg);
+    margin-top: 20px;
+    /* background-color: aqua; */
+    width:200px;
+    /* position: relative; */
+    /* left:70%; */
+}
+
+.statusBox{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 40%;
+    /* background-color: blueviolet; */
+
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+    width: 100%;
+    /* background-color: chartreuse; */
+}
+
+.principalTitle{
+    margin-top: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* background-color: aquamarine; */
+}
+
+.f1{
+    background-color: rgba(117, 117, 117, 0.541);
+    color: white;
+    border: solid 2px white;
+    border-radius: 13px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 10px;
+    width: 70%;
+}
+
+.rainProbability{
+    transform: rotate(45deg);
+}
+
+@media (min-width: 700px) {
+    footer {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .f1{
+        width: 45%;
+    }
+  }
+
+.credit{
+    background-color: white;
+    width: 100%;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+/* unvisited link */
+a.credit1:link, a.credit1:visited, a.credit1:hover, a.credit1:active {
+    font-weight: bolder;
+    text-decoration: none;
+    color: black;
+  }
