@@ -1,12 +1,12 @@
 const apiKey = 'd7db451187ac48b4bd7130555242305';
 const cityName = 'Guardinha';
-const apiUrlCurrent = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&lang=pt`;
-const apiUrlWeatherForecast = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=3&lang=pt`;
+const apiUrlCurrent = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&lang=pt`;
+const apiUrlWeatherForecast = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=3&lang=pt`;
 // const apiUrlCity = `http://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${cityName}&lang=pt`;
 const cacheWeatherForecastKey = 'forecastData'
 const cacheKey = 'weatherData';
 // const cacheExpiry = 3600000; // 1 hour in milliseconds
-const cacheExpiry = 360; // 1 hour in milliseconds
+const cacheExpiry = 3600000; // 1 hour in milliseconds
 
 let city = document.getElementById("city")
 let temperature = document.getElementById("temperature")
