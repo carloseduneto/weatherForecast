@@ -6,7 +6,7 @@ const apiUrlWeatherForecast = `http://api.weatherapi.com/v1/forecast.json?key=${
 const cacheWeatherForecastKey = 'forecastData'
 const cacheKey = 'weatherData';
 // const cacheExpiry = 3600000; // 1 hour in milliseconds
-const cacheExpiry = 360; // 1 hour in milliseconds
+const cacheExpiry = 3600000; // 1 hour in milliseconds
 
 let city = document.getElementById("city")
 let temperature = document.getElementById("temperature")
