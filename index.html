@@ -14,11 +14,23 @@
 </head>
 <body>
     <header>
-    <form action="">
-        <span class="material-symbols-outlined">
-            search
-            </span><input type="text" placeholder="Buscar cidades...">
-    </form>
+        <div class="searchPlace">
+            <form action="">
+                <div class="searchSpace">
+                    <div class="buttonsSearch">
+                        <div class="searchSymbol">
+                            <span class="material-symbols-outlined ">search</span>
+                        </div>
+                        <input type="text" placeholder="Buscar cidades..." id="search" class="search" oninput="toSearch()">
+                    </div>
+                    <div id="results">
+                    </div>
+                    </div>
+            </form>
+        </div>
+
+
+        
     <div class="principalTitle">
         <div>
             <div class="title">
@@ -35,9 +47,10 @@
 
 <main></main>
 
-    <footer>
+    <footer class="alignFooter">
+        <div class="subFooter">
     <div class="f1">    
-        <span>Agora</span>
+        <span class="footerTitle">Agora</span>
         <div class="info">
             <div class="now">
                 <span class="material-symbols-outlined">
@@ -67,12 +80,13 @@
     </div>
     <div class="f1">
 
-        <span>Próximos 3 dias</span>
+        <span class="footerTitle">Próximos 3 dias</span>
+    </hr>
         <div class="threeDays">
             
         </div>
     </div>
-
+    </div>
     <div class="credit">
         <div>
             Powered by <a href="https://www.weatherapi.com/" title="Free Weather API" class="credit1" target="_blank">WeatherAPI.com</a>
