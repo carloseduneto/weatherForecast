@@ -1,8 +1,8 @@
 const apiKey = 'd7db451187ac48b4bd7130555242305';
 const cityName = 'Guardinha';
-const apiUrlCurrent = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&lang=pt`;
-const apiUrlWeatherForecast = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=3&lang=pt`;
-// const apiUrlCity = `http://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${cityName}&lang=pt`;
+const apiUrlCurrent = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&lang=pt`;
+const apiUrlWeatherForecast = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${cityName}&days=3&lang=pt`;
+
 const cacheWeatherForecastKey = 'forecastData'
 const cacheKey = 'weatherData';
 // const cacheExpiry = 3600000; // 1 hour in milliseconds
@@ -104,6 +104,7 @@ async function getWeatherData() {
   if (cachedData) {
     const { data, timestamp } = JSON.parse(cachedData);
     if (Date.now() - timestamp < cacheExpiry) {
+      console.log(data)
       console.log('✅ Using cached data');
       console.log(data.location.name);
       console.log(data.location.region);
@@ -120,12 +121,11 @@ async function getWeatherData() {
 
       wet.innerHTML = data.current.humidity+"%"
 
-      precip_in.innerHTML = data.current.precip_in+"%";
+
 
       last_updated.innerHTML = data.current.last_updated.split(' ')[1]
 
 
-      console.log(data)
       return;
     }
   }
@@ -240,7 +240,9 @@ async function getForecastData() {
         
       }
       threeDays[0].innerHTML= nextDays
-   
+      precip_in.innerHTML = data.forecast.forecastday[0].day.daily_chance_of_rain
++"%";
+
       console.log(data)
 
       return;
@@ -269,6 +271,46 @@ function brazilianDate(date) {
   // Retorna a data formatada no padrão brasileiro
   return `${day}/${month}`;
 }
+
+
+function toSearch() {
+  let search = document.getElementById("search").value
+  let results = document.getElementById("results")
+  const apiUrlCity = `http://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${search}&lang=pt`;
+  let responses="";
+  
+  if (search !== null && search !== undefined && search !== '') {
+    fetch(apiUrlCity)
+    .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        console.log(data[0])   
+        
+        for (let index = 0; index < data.length; index++) {
+          responses += `<span class="results" onclick='changeCity()'>${data[index].name}, ${data[index].name}</span>`
+          console.log(data[index])
+        }
+        // results.innerHTML = data
+        results.innerHTML = responses;
+        console.log(responses)
+      })
+      .catch(error => console.error('Error:', error));
+      
+      
+      console.log(data)
+      
+    } else {
+      results.innerHTML = "<span></span>"
+    }
+    
+    
+  }
+  
+
+function changeCity(params) {
+  
+}
+
 /*
 async function fetchCityData() {
       fetch(apiUrlCity)
