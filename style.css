@@ -9,11 +9,28 @@
 
 body{
     background-repeat: no-repeat;
-    background-image: url("https://images.unsplash.com/photo-1716369413898-852306c79bcb?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    background-image: url("https://images.unsplash.com/photo-1445264618000-f1e069c5920f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     /* backdrop-filter: opacity(10%); */
     background-position: center;
+    
 }
 
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.185); /* 20% de preto */
+    z-index: 0;
+}
+
+header, main, footer{
+    z-index: 2;
+}
 body {
     /* background-color: rgb(173, 129, 71); */
     min-height: 100vh;
@@ -74,6 +91,7 @@ header {
     margin-top: 20px;
     /* background-color: aqua; */
     width:200px;
+    font-size: large ;
     /* position: relative; */
     /* left:70%; */
 }
@@ -100,11 +118,12 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    color: white;
     /* background-color: aquamarine; */
 }
 
 .f1{
-    background-color: rgba(117, 117, 117, 0.541);
+    background-color: rgba(0, 0, 0, 0.144);
     color: white;
     border: solid 2px white;
     border-radius: 13px;
@@ -168,6 +187,8 @@ form{
     height: 40px;
     border-radius: 15px;
     margin-top: 2px;
+    cursor: pointer;
+    font-weight: 700;
 }
 
 #results{
