@@ -338,7 +338,7 @@ let results = document.getElementById("results")
 function toSearch() {
   let responses="";
   let search = document.getElementById("search").value
-  const apiUrlCity = `http://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${search}&lang=pt`;
+  const apiUrlCity = `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${search}&lang=pt`;
   
   if (search !== null && search !== undefined && search !== '') {
     fetch(apiUrlCity)
