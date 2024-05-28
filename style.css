@@ -13,6 +13,7 @@ body{
     background-image: url("https://images.unsplash.com/photo-1445264618000-f1e069c5920f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     /* backdrop-filter: opacity(10%); */
     background-position: center;
+    width: 100%;
     
 }
 
@@ -30,6 +31,7 @@ body::before {
 
 header, main, footer{
     z-index: 2;
+    /* width: 100%; */
 }
 body {
     /* background-color: rgb(173, 129, 71); */
@@ -46,6 +48,7 @@ footer {
     display: flex;
     align-items: center;
     flex-direction: column;
+    /* width: 100%; */
     /* background: PapayaWhip; */
 }
 
@@ -101,7 +104,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: end;
-    width: 40%;
+    width: 28%;
+    /* height: 50%; */
     /* background-color: blueviolet; */
 
 }
