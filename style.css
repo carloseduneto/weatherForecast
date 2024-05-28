@@ -88,12 +88,13 @@ header {
 
 #status{
     transform: rotate(-90deg);
-    margin-top: 20px;
+    margin-top: 50px;
     /* background-color: aqua; */
     width:200px;
     font-size: large ;
     /* position: relative; */
     /* left:70%; */
+    text-align: right;
 }
 
 .statusBox{
